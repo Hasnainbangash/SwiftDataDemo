@@ -23,7 +23,16 @@ struct ContentView: View {
             
             List {
                 ForEach (items) { item in
-                    Text(item.name)
+                    HStack {
+                        Text(item.name)
+                        Spacer()
+                        Button {
+                            updateItem(item)
+                        } label: {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                        }
+
+                    }
                 }
                 .onDelete { indexes in
                     for index in indexes {
@@ -45,6 +54,13 @@ struct ContentView: View {
     
     func deleteItem(_ item: DataItem) {
         context.delete(item)
+    }
+    
+    func updateItem(_ item: DataItem) {
+        // Edit the item data
+        item.name = "Updated Test Item"
+        // Save the context
+        try? context.save()
     }
     
 }
