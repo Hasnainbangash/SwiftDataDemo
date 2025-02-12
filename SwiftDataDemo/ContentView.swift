@@ -25,6 +25,11 @@ struct ContentView: View {
                 ForEach (items) { item in
                     Text(item.name)
                 }
+                .onDelete { indexes in
+                    for index in indexes {
+                        deleteItem(items[index])
+                    }
+                }
             }
             
         }
@@ -38,8 +43,13 @@ struct ContentView: View {
         context.insert(item)
     }
     
+    func deleteItem(_ item: DataItem) {
+        context.delete(item)
+    }
+    
 }
 
 #Preview {
     ContentView()
+        .modelContainer(for: DataItem.self)
 }
